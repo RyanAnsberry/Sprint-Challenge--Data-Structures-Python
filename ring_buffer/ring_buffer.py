@@ -48,30 +48,36 @@ class RingBuffer:
 
 class ArrayRingBuffer:
     def __init__(self, capacity):
-        pass
+        self.capacity = capacity
+        self.storage = [None] * capacity
+        self.curr_index = 0
 
     def append(self, item):
-        pass
+        # check if curr index is less than capacity
+        if self.curr_index < self.capacity:
+            # add item to current index and iterate to the nest
+            self.storage[self.curr_index] = item
+            self.curr_index += 1
+        else: 
+            # reset curr index to the beginning
+            # before adding next item
+            self.curr_index = 0
+            self.storage[self.curr_index] = item
+            self.curr_index += 1
 
     def get(self):
-        pass
+        # arr to hold values != None
+        arr = []
+        # iterate through storage
+        for i in self.storage:
+            # if not none add it to arr
+            if i:
+                arr.append(i)
+        return arr
 
-buffer = RingBuffer(3)
 
-print(f"Should return [] : {buffer.get()}")
 
-buffer.append('a')
-buffer.append('b')
-buffer.append('c')
 
-print(f"Should return ['a', 'b', 'c'] : {buffer.get()}")
 
-buffer.append('d')
 
-print(f"Should return ['d', 'b', 'c'] : {buffer.get()}")
-
-buffer.append('e')
-buffer.append('f')
-
-print(f"Should return ['d', 'e', 'f'] : {buffer.get()}")
 
